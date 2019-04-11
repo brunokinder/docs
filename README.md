@@ -34,7 +34,7 @@ Le déploiement est ce qui se produit lorsque on installe une version de votre l
 
 Lorsque nous réduisons la taille des lots, nous pouvons déployer plus fréquemment, car réduire la taille des lots entraîne une réduction du temps de cycle. Pourquoi cela réduit-il les risques? Lorsqu'une équipe d'ingénierie de publication passe un week-end dans un centre de données pour déployer le travail des trois derniers mois, la dernière chose qu'ils souhaitent faire est de déployer à nouveau de sitôt. Mais comme l'expliquent Dave Farley et Jez Humble dans le livre "Continuous Delivery: Reliable Software Releases through Build", quand quelque chose fait mal, la solution est de le faire plus souvent et d'exposer la douleur.
 
-![Kibana Dev Tools](/batch-size.png)
+![taille de la batch](/batch-size.png)
 
 Un déploiement en production plus souvent permet de réduire le risque de chaque version pour trois raisons:
 
@@ -48,6 +48,18 @@ Un déploiement en production plus souvent permet de réduire le risque de chaqu
 
 La résilience est la capacité "d'absorber ou d'éviter les dommages sans subir un échec total" et est obtenue en minimisant le temps moyen de réparation (MTTR) des services. Certaines classes d'échecs ne devraient jamais se produire, certaines échecs sont plus coûteuses que d’autres, et certains systèmes critiques pour la sécurité ne devraient jamais avoir d'échecs, mais en général, les entreprises doivent adhérer à l’avis de John Allspaw selon lequel "il est plus important de pouvoir récupérer rapidement d’une panne que d'avoir des échecs moins souvent ".
 
+# Solutions
+
+## Blue-green deployment
+Enfin, comment publier la nouvelle version de l’application de manière incrémentielle? C’est l’objet du pattern de déploiement blue-green. À l'aide de ce modèle, nous déployons la nouvelle version de l'application parallèlement à l'ancienne version. Pour passer à la nouvelle version et revenir à l’ancienne version, nous modifions le paramètre du load balancer ou du routeur.
+
+![Blue-green deployment](/bluegreen.png)
+
+## Feature toggle
+«Feature Toggle» est une approche de développement logiciel qui permet aux équipes de développement de répondre aux demandes et de proposer de nouvelles fonctionnalités aux utilisateurs rapidement mais sans risque. Cela est rendu possible par la gestion des indicateurs insérés dans le nouveau code de fonctionnalité et par la possibilité de modifier le mode d'exécution du code dans l'environnement de production sans déployer une version mise à jour.
+
+![Blue-green deployment](/feature-toggle.png)
+
 # Conclusions
 
 Avec ces techniques, on peut réduire considérablement le risque de livraison pour les utilisateurs. Cependant, ils entraînent des coûts de développement supplémentaires et nécessitent une planification préalable. Ces types de coûts sont souvent difficiles à justifier, en partie parce que les gens ont tendance à sous-estimer une récompense qui existera à l’avenir. (Il s'agit d'un biais comportemental connu sous le nom "emporal discounting"). C'est l'une des raisons pour lesquelles il est important de réduire la taille des lots et, par conséquent, la réduction du délai d'exécution. On obtien également beaucoup plus tôt des commentaires sur les avantages de la modification de notre processus de livraison, ce qui augmente la motivation de l'équipe.
@@ -60,3 +72,4 @@ Les équipes opérationnelles résistent souvent au changement, parce que tout c
 * http://www.informit.com/articles/article.aspx?p=1833567&seqNum=4
 * https://www.joetheitguy.com/2017/11/22/5-awkward-questions-production-end-devops-pipeline/
 * https://dzone.com/articles/the-value-of-optimising-for-resilience
+* https://medium.com/@itaygabbay/feature-toggles-or-why-you-should-take-risks-in-production-cad9f22565f1
